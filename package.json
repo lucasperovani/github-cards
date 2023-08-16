@@ -1,0 +1,23 @@
+{
+  "name": "github-cards",
+  "version": "1.0.0",
+  "description": "Create profile cards for Github.",
+  "main": "index.js",
+  "scripts": {
+    "run": "node index.js",
+    "test": "test"
+  },
+  "keywords": [
+    "profile",
+    "git",
+    "github",
+    "card",
+    "language"
+  ],
+  "author": "Lucas Perovani Dorméa",
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "express": "^4.18.2"
+  }
+}

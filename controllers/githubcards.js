@@ -1,5 +1,14 @@
+// Librairies
 const axios = require('axios');
-const usernameRegex = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
+
+// This Module
+const {BasicSVG} = require('./classes/svg.js');
+
+// Constants
+const USERNAME_REGEX = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
+const DISPLAY_WIDTH = 400;
+const DISPLAY_HEIGHT = 200;
+
 
 
 let controller = {};
@@ -30,7 +39,7 @@ controller.entry = async function (request, response) {
 	}
 
 	// Validate the user to only contain valid characters
-	if (!usernameRegex.test(request.params.user)) {
+	if (!USERNAME_REGEX.test(request.params.user)) {
 		return response.status(400).send('Invalid Username');
 	}
 
@@ -68,7 +77,14 @@ controller.entry = async function (request, response) {
 
 	// Change the content type to SVG
 	response.setHeader('content-type', 'image/svg+xml; charset=utf-8');
-	response.send('<svg></svg>');
+
+	// Build the SVG
+	let svg = new BasicSVG(
+		DISPLAY_WIDTH, DISPLAY_HEIGHT,
+	);
+
+	// Send the SVG
+	response.send(svg.build());
 };
 
 module.exports = controller;

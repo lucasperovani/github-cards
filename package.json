@@ -4,7 +4,7 @@
   "description": "Create profile cards for Github.",
   "main": "index.js",
   "scripts": {
-    "run": "node index.js",
+    "dev": "node main.js",
     "test": "test"
   },
   "keywords": [

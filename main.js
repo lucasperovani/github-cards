@@ -1,11 +1,11 @@
 const express = require('express');
 const routes = require('./routes/index.js');
 
-const app = express();
-const port = 3000;
+const APP = express();
+const PORT = 3000;
 
 // Entry point for the github cards
-app.use('/', routes);
+APP.use('/', routes);
 
 // Start listening to requests
-app.listen(port, () => {console.log(`Listening at http://localhost:${port}`)});
+APP.listen(PORT, () => {console.log(`Listening at http://localhost:${PORT}`)});

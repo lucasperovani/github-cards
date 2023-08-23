@@ -9,8 +9,6 @@ const USERNAME_REGEX = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
 const DISPLAY_WIDTH = 400;
 const DISPLAY_HEIGHT = 200;
 
-
-
 let controller = {};
 
 

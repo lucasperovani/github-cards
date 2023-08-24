@@ -3,17 +3,15 @@
  * It is used to build an SVG string.
  * 
  * @class
- * @property {boolean} error - The error status.
- * @property {string} message - The error message.
+ * @property {Boolean} error - The error status.
+ * @property {String} message - The error message.
  * @property {SVG[]} children - The SVG children.
  */
 class SVG {
     /**
      * This function creates a new SVG object.
      *
-     * @param {Array} children - The SVG children.
-     *
-     * @returns {SVG} The SVG object.
+     * @param {SVG[]} children - The SVG children.
      */
     constructor(children = []) {
         // If it is not an array, give an error
@@ -45,7 +43,7 @@ class SVG {
     /**
      * Get the error status.
      *
-     * @return {boolean} The error status.
+     * @return {Boolean} The error status.
      */
     getError() {
         return {error: this.error, message: this.message};
@@ -75,7 +73,7 @@ class SVG {
     /**
      * This function build the children SVG string.
      * 
-     * @return {string} The children SVG string.
+     * @return {String} The children SVG string.
      */
     buildChildren() {
         // If there is an error, return an empty string
@@ -111,17 +109,20 @@ class SVG {
  *
  * @class
  * @extends SVG
- * @property {number} width - The SVG width.
- * @property {number} height - The SVG height.
+ * @property {Number} width - The SVG width.
+ * @property {Number} height - The SVG height.
  * @property {SVG[]} children - The SVG children.
  */
 class BasicSVG extends SVG {
     /**
      * This function creates a new BasicSVG object.
      * 
-     * @param {number} width - The SVG width.
-     * @param {number} height - The SVG height.
+     * @param {Number} width - The SVG width.
+     * @param {Number} height - The SVG height.
      * @param {Array} children - The SVG children.
+     * 
+     * @override
+     * @see SVG#constructor
      */
     constructor(width = 400, height = 200, children = []) {
         // Call the parent constructor
@@ -154,7 +155,7 @@ class BasicSVG extends SVG {
     /**
      * This function returns the SVG string.
      * 
-     * @return {string} The SVG string.
+     * @return {String} The SVG string.
      * 
      * @override
      * @see SVG#build
@@ -168,11 +169,12 @@ class BasicSVG extends SVG {
                     'fill="none" ' +
                     'role="img" ' +
                     'aria-labelledby="descId" ' +
-                    'viewBox="0 0 ' + this.width + ' ' + this.height + '"> ' +
+                    'viewBox="0 0 ' + this.width + ' ' + this.height +
+                '">' +
                     this.buildChildren() +
                 '</svg>';
     }
 };
 
-// Export the SVG class
+// Export SVGs class
 module.exports = {SVG, BasicSVG};

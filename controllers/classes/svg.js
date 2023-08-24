@@ -1,3 +1,18 @@
+const ALLOWED_PARAMETERS = {
+    'aria-labelledby':  {type: 'string'},
+    'fill':             {type: 'string'},
+    'height':           {type: 'integer', min: 0},
+    'id':               {type: 'string'},
+    'role':             {
+        type: 'string',
+        values: ['application', 'document', 'img'],
+    },
+    'viewBox':          {type: 'integer[4]'},
+    'width':            {type: 'integer', min: 0},
+    'xmlns':            {type: 'string'},
+};
+
+
 /**
  * This class represents an SVG.
  * It is used to build an SVG string.

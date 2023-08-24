@@ -19,6 +19,7 @@ class SVG {
             this.error = true;
             this.message = 'Invalid children array';
             this.children = [];
+            this.parameters = {};
 
             return;
         }
@@ -31,6 +32,7 @@ class SVG {
             this.error = true;
             this.message = 'Invalid children';
             this.children = [];
+            this.parameters = {};
 
             return;
         }
@@ -38,6 +40,7 @@ class SVG {
         this.error = false;
         this.message = 'OK';
         this.children = children;
+        this.parameters = {};
     }
 
     /**
@@ -88,15 +91,60 @@ class SVG {
     }
 
     /**
+     * Add a parameter to the SVG tag.
+     *
+     * @param {String} name - The parameter name.
+     * @param {String} value - The parameter value.
+     *
+     * @return {Boolean} If could add the parameter.
+     */
+    addParameter(name, value) {
+        // If there is an error, return false
+        if (this.error) return false;
+
+        // If the name is not a string, return false
+        if (typeof name !== 'string') return false;
+
+        // If the value is not a string, return false
+        if (typeof value !== 'string') return false;
+
+        // Add the parameter
+        this.parameters[name] = value;
+        return true;
+    }
+
+    /**
+     * Build the parameters string.
+     *
+     * @return {String} The parameters string.
+     */
+    buildParameters() {
+        let paramString = '';
+
+        // If there is an error, return an empty string
+        if (this.error) return paramString;
+
+        // Loop through the parameters and build the parameters string
+        Object.keys(this.parameters).forEach(key => {
+            paramString += key + '="' + this.parameters[key] + '" ';
+        });
+
+        // Return the parameters string
+        return paramString;
+    }
+
+    /**
      * This function returns the SVG string.
      * 
-     * @return {string} The SVG string.
+     * @return {String} The SVG string.
      */
     build() {
         // Return the SVG string
         return '<svg ' + 
                     'xmlns="http://www.w3.org/2000/svg" ' +
-                    'viewBox="0 0 400 200"> ' +
+                    'viewBox="0 0 400 200' +
+                    this.buildParameters() +
+                '">' +
                     this.buildChildren() +
                 '</svg>';
     }

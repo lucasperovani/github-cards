@@ -8,4 +8,6 @@ const PORT = 3000;
 APP.use('/', routes);
 
 // Start listening to requests
-APP.listen(PORT, () => {console.log(`Listening at http://localhost:${PORT}`)});
+APP.listen(PORT, () => {
+	console.log(`Listening at http://localhost:${PORT}`);
+});

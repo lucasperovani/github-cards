@@ -9,7 +9,7 @@ const USERNAME_REGEX = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
 const DISPLAY_WIDTH = 400;
 const DISPLAY_HEIGHT = 200;
 
-let controller = {};
+const controller = {};
 
 
 /**
@@ -27,7 +27,7 @@ let controller = {};
  *
  * @return {void}
  */
-controller.entry = async function (request, response) {
+controller.entry = async function(request, response) {
 	// Validate the response
 	if (!response) return;
 
@@ -77,9 +77,7 @@ controller.entry = async function (request, response) {
 	response.setHeader('content-type', 'image/svg+xml; charset=utf-8');
 
 	// Build the SVG
-	let svg = new BasicSVG(
-		DISPLAY_WIDTH, DISPLAY_HEIGHT,
-	);
+	const svg = new BasicSVG(DISPLAY_WIDTH, DISPLAY_HEIGHT);
 
 	// Send the SVG
 	response.send(svg.build());

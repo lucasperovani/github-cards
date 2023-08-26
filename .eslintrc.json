@@ -9,5 +9,11 @@
         "sourceType": "module"
     },
     "rules": {
+        // Tabs
+        "indent": ["error", "tab"],
+        "no-tabs": ["error", {"allowIndentationTabs": true }],
+
+        // Alignment
+        "key-spacing": ["error", {"align": "value"}]
     }
 }

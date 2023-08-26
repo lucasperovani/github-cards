@@ -11,7 +11,7 @@ const ALLOWED_PARAMETERS = {
 	'width':   {type: 'integer', min: 1},
 };
 
-const STRING_REGEX = /^[a-zA-Z0-9-_]+$/;
+const STRING_REGEX = /^[a-zA-Z0-9-_@() ]+$/;
 
 
 // Export constants

@@ -54,4 +54,4 @@ class SVGTitle extends SVG {
 
 
 // Export SVGs class
-module.exports = {SVG, BasicSVG};
+module.exports = {SVGTitle};

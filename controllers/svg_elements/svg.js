@@ -121,54 +121,84 @@ class SVG {
 
 		// If the parameter is not allowed, return false
 		switch (ALLOWED_PARAMETERS[name].type) {
-		case 'string':
-			if (typeof value !== 'string') return false;
+			// String
+			case 'string':
+				if (typeof value !== 'string') return false;
 
-			// Push the parameter
-			this.parameters[name] = value;
+				// If the parameter has values, check if the value is valid
+				if (
+					ALLOWED_PARAMETERS[name].values &&
+					!ALLOWED_PARAMETERS[name].values.includes(value)
+				) return false;
 
-			break;
+				// Check if the value is a valid string
+				if (!STRING_REGEX.test(value)) return false;
 
-		case 'integer':
-			if (typeof value !== 'number') return false;
+				// Push the parameter
+				this.parameters[name] = value;
 
-			// Validate min
-			if (
-				ALLOWED_PARAMETERS[name].min &&
-				value < ALLOWED_PARAMETERS[name].min
-			) return false;
+				break;
 
-			// Validate max
-			if (
-				ALLOWED_PARAMETERS[name].max &&
-				value > ALLOWED_PARAMETERS[name].max
-			) return false;
+			// Integer
+			case 'integer':
+				if (typeof value !== 'number') return false;
 
-			// Push the parameter
-			this.parameters[name] = value.toString();
+				// Validate min
+				if (
+					ALLOWED_PARAMETERS[name].min &&
+					value < ALLOWED_PARAMETERS[name].min
+				) return false;
 
-			break;
+				// Validate max
+				if (
+					ALLOWED_PARAMETERS[name].max &&
+					value > ALLOWED_PARAMETERS[name].max
+				) return false;
 
-		case 'integer-array':
-			if (!Array.isArray(value)) return false;
-			// Validate length
-			if (
-				ALLOWED_PARAMETERS[name].length &&
-				value.length !== ALLOWED_PARAMETERS[name].length
-			) return false;
+				// Push the parameter
+				this.parameters[name] = parseInt(value).toString();
 
-			// Validate each element
-			value.forEach((element) => {
-				if (typeof element !== 'number') return false;
-			});
+				break;
 
-			// Push the parameter
-			this.parameters[name] = value.join(' ');
+			// Array of integers
+			case 'integer-array':
+				const array = [];
 
-			break;
+				if (!Array.isArray(value)) return false;
 
-		default:
-			return false;
+				// Validate length
+				if (
+					ALLOWED_PARAMETERS[name].length &&
+					value.length !== ALLOWED_PARAMETERS[name].length
+				) return false;
+
+				// Validate each element
+				value.forEach((element) => {
+					if (typeof element !== 'number') return false;
+
+					// Validate min
+					if (
+						ALLOWED_PARAMETERS[name].min &&
+						element < ALLOWED_PARAMETERS[name].min
+					) return false;
+
+					// Validate max
+					if (
+						ALLOWED_PARAMETERS[name].max &&
+						element > ALLOWED_PARAMETERS[name].max
+					) return false;
+
+					// Push the element
+					array.push(parseInt(element).toString());
+				});
+
+				// Push the parameter
+				this.parameters[name] = array.join(' ');
+
+				break;
+
+			default:
+				return false;
 		}
 
 		return true;
@@ -262,7 +292,7 @@ class BasicSVG extends SVG {
 	/**
 	 * This function returns the SVG string.
 	 *
-	 * @return {String} The SVG string.
+	 * @returns {String} The SVG string.
 	 *
 	 * @override
 	 * @see SVG#build

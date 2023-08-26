@@ -10,6 +10,7 @@ const ALLOWED_PARAMETERS = {
 	'viewBox': {type: 'integer-array', length: 4},
 	'width':   {type: 'integer', min: 1},
 };
+const STRING_REGEX = /^[a-zA-Z0-9-_]+$/;
 
 
 /**
@@ -73,7 +74,7 @@ class SVG {
 	 *
 	 * @returns {Boolean} The push status.
 	 */
-	pushChild(child) {
+	addChild(child) {
 		// If there is an error, return false
 		if (this.error) return false;
 

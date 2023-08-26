@@ -77,8 +77,21 @@ controller.entry = async function(request, response) {
 	// Change the content type to SVG
 	response.setHeader('content-type', 'image/svg+xml; charset=utf-8');
 
-	// Build the SVG
+	// Create a new SVG
 	const svg = new BasicSVG(DISPLAY_WIDTH, DISPLAY_HEIGHT);
+
+	// Set svg parameters
+	svg.addParameter('fill', 'none'); // Set the fill color to none
+	svg.addParameter('role', 'img'); // Set the role to img
+	svg.addParameter('aria-labelledby', 'descriptionID'); // Set the description
+
+	// Create the title
+	const title = new SVGTitle(
+		name + ' (@' + login + ') - Github Card',
+	);
+
+	// Add the title to the SVG
+	svg.addChild(title);
 
 	// Send the SVG
 	response.send(svg.build());

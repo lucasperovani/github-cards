@@ -4,6 +4,7 @@ const axios = require('axios');
 // This Module
 const {BasicSVG} = require('./svg_elements/svg.js');
 const {SVGTitle} = require('./svg_elements/title.js');
+const {SVGDesc} = require('./svg_elements/desc.js');
 
 // Constants
 const USERNAME_REGEX = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
@@ -139,13 +140,20 @@ controller.entry = async function(request, response) {
 	svg.addParameter('role', 'img'); // Set the role to img
 	svg.addParameter('aria-labelledby', 'descriptionID'); // Set the description
 
-	// Create the title
+	// Create the title and description
 	const title = new SVGTitle(
 		name + ' (@' + login + ') - Github Card',
 	);
+	const description = new SVGDesc(
+		'Github Card for ' + name + ' (@' + login + ')',
+	);
 
-	// Add the title to the SVG
+	// Set the ID of the description
+	description.addParameter('id', 'descriptionID');
+
+	// Add the title and description to the SVG
 	svg.addChild(title);
+	svg.addChild(description);
 
 	// Send the SVG
 	response.send(svg.build());

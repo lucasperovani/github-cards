@@ -46,7 +46,7 @@ class SVGTitle extends SVG {
 	 */
 	build() {
 		// Return the SVG string
-		return '<title' + this.buildParameters() + '>' +
+		return '<title ' + this.buildParameters() + '>' +
 					this.title +
 				'</title>';
 	}

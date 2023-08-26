@@ -202,10 +202,8 @@ class SVG {
 	build() {
 		// Return the SVG string
 		return '<svg ' +
-					'xmlns="http://www.w3.org/2000/svg" ' +
-					'viewBox="0 0 400 200' +
 					this.buildParameters() +
-				'">' +
+				'>' +
 					this.buildChildren() +
 				'</svg>';
 	}
@@ -275,11 +273,9 @@ class BasicSVG extends SVG {
 					'xmlns="http://www.w3.org/2000/svg" ' +
 					'width="' + this.width + '" ' +
 					'height="' + this.height + '" ' +
-					'fill="none" ' +
-					'role="img" ' +
-					'aria-labelledby="descId" ' +
-					'viewBox="0 0 ' + this.width + ' ' + this.height +
-				'">' +
+					'viewBox="0 0 ' + this.width + ' ' + this.height + '" ' +
+					this.buildParameters() +
+				'>' +
 					this.buildChildren() +
 				'</svg>';
 	}

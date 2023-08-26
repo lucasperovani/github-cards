@@ -9,7 +9,6 @@ const ALLOWED_PARAMETERS = {
 	},
 	'viewBox': {type: 'integer-array', length: 4},
 	'width':   {type: 'integer', min: 1},
-	'xmlns':   {type: 'string'},
 };
 
 

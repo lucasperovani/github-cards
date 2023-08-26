@@ -1,4 +1,5 @@
 const {SVG} = require('./svg.js');
+const {STRING_REGEX} = require('../constants.js');
 
 
 /**
@@ -22,12 +23,22 @@ class SVGTitle extends SVG {
 		super();
 
 		// If there is an error, return
-		if (this.error) return;
-
-		// If the title is not a string, return
-		if (typeof title !== 'string') {
+		if (this.error) {
 			this.error = true;
 			this.message = 'Invalid title';
+			this.title = '';
+
+			return;
+		}
+
+		// If the title is not a string, return
+		if (
+			typeof title !== 'string' ||
+			!STRING_REGEX.test(title)
+		) {
+			this.error = true;
+			this.message = 'Invalid title';
+			this.title = '';
 
 			return;
 		}

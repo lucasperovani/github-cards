@@ -61,7 +61,7 @@ class SVG {
 	/**
 	 * Get the error status.
 	 *
-	 * @return {Boolean} The error status.
+	 * @returns {Boolean} The error status.
 	 */
 	getError() {
 		return {error: this.error, message: this.message};
@@ -72,7 +72,7 @@ class SVG {
 	 *
 	 * @param {SVG} child - The child to push.
 	 *
-	 * @return {Boolean} The push status.
+	 * @returns {Boolean} The push status.
 	 */
 	pushChild(child) {
 		// If there is an error, return false
@@ -91,7 +91,7 @@ class SVG {
 	/**
 	 * This function build the children SVG string.
 	 *
-	 * @return {String} The children SVG string.
+	 * @returns {String} The children SVG string.
 	 */
 	buildChildren() {
 		// If there is an error, return an empty string
@@ -111,7 +111,7 @@ class SVG {
 	 * @param {String} name - The parameter name.
 	 * @param {String} value - The parameter value.
 	 *
-	 * @return {Boolean} If could add the parameter.
+	 * @returns {Boolean} If could add the parameter.
 	 */
 	addParameter(name, value) {
 		// If there is an error, return false
@@ -178,7 +178,7 @@ class SVG {
 	/**
 	 * Build the parameters string.
 	 *
-	 * @return {String} The parameters string.
+	 * @returns {String} The parameters string.
 	 */
 	buildParameters() {
 		let paramString = '';
@@ -198,7 +198,7 @@ class SVG {
 	/**
 	 * This function returns the SVG string.
 	 *
-	 * @return {String} The SVG string.
+	 * @returns {String} The SVG string.
 	 */
 	build() {
 		// Return the SVG string
@@ -286,57 +286,6 @@ class BasicSVG extends SVG {
 	}
 };
 
-
-/**
- * Create a SVG title.
- *
- * @param {String} title - The title.
- *
- * @return {SVG} The SVG title.
- */
-class SVGTitle extends SVG {
-	/**
-	 * This function creates a new SVGTitle object.
-	 *
-	 * @param {String} title - The title.
-	 *
-	 * @override
-	 * @see SVG#constructor
-	 */
-	constructor(title = '') {
-		// Call the parent constructor
-		super();
-
-		// If there is an error, return
-		if (this.error) return;
-
-		// If the title is not a string, return
-		if (typeof title !== 'string') {
-			this.error = true;
-			this.message = 'Invalid title';
-
-			return;
-		}
-
-		// Set the title
-		this.title = title;
-	}
-
-	/**
-	 * This function returns the SVG string. This element has no children.
-	 *
-	 * @return {String} The SVG string.
-	 *
-	 * @override
-	 * @see SVG#build
-	 */
-	build() {
-		// Return the SVG string
-		return '<title' + this.buildParameters() + '>' +
-				this.title +
-				'</title>';
-	}
-};
 
 // Export SVGs class
 module.exports = {SVG, BasicSVG};

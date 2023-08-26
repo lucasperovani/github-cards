@@ -2,7 +2,8 @@
 const axios = require('axios');
 
 // This Module
-const {BasicSVG} = require('./classes/svg.js');
+const {BasicSVG} = require('./svg_elements/svg.js');
+const {SVGTitle} = require('./svg_elements/title.js');
 
 // Constants
 const USERNAME_REGEX = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;

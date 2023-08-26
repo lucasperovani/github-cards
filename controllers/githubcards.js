@@ -14,6 +14,76 @@ const controller = {};
 
 
 /**
+ * This function gets the user's information from Github and sends back the
+ * response.
+ *
+ * @async
+ * @private
+ * @static
+ * @function
+ *
+ * @param {String} username - The request object.
+ *
+ * @returns {Promise<Object>} The user's information or error as following:
+ * - success   - Boolean value if there is an error;
+ * - userInfo: - User's information object;
+ * - userRepos - User's repos object.
+ */
+async function getUserInfo(username) {
+	// Validate the username
+	if (!username || !USERNAME_REGEX.test(username)) return {success: false};
+
+	// Get the user from Github
+	const userInfoPromise = axios.get(
+		'http://api.github.com/users/' + username,
+	);
+
+	// Get the user's repos from Github
+	const userReposPromise = axios.get(
+		'http://api.github.com/users/' + username + '/repos',
+	);
+
+	// Await the promises
+	const [userInfo, userRepos] = await Promise.all([
+		userInfoPromise, userReposPromise,
+	]);
+
+	// If there is an error, return
+	if (
+		!userInfo || !userInfo.data || userInfo.status !== 200 ||
+		!userRepos || !userRepos.data || userRepos.status !== 200
+	) return {success: false};
+
+
+	// Return the user's information
+	return {
+		success:   true,
+		userInfo:  userInfo.data,
+		userRepos: userRepos.data,
+	};
+};
+
+
+/**
+ * Build the SVG Github Card.
+ *
+ * @private
+ * @static
+ * @function
+ *
+ * @param {String} avatar - The user's avatar.
+ * @param {String} name - The user's name.
+ * @param {String} login - The user's login.
+ * @param {String} bio - The user's bio.
+ * @param {Integer} stars - The user's stars.
+ * @param {Integer} width - The SVG width.
+ * @param {Integer} height - The SVG height.
+ * @param {String} title - The SVG title.
+ * @param {String} description - The SVG description.
+ */
+
+
+/**
  * This function is the entry point for the Github Cards API calls. It prepares
  * the calls to the Github API to get the user's information and is the entry
  * point for building the whole SVG.
@@ -37,40 +107,24 @@ controller.entry = async function(request, response) {
 		return response.status(400).send('Bad Request');
 	}
 
-	// Validate the user to only contain valid characters
-	if (!USERNAME_REGEX.test(request.params.user)) {
-		return response.status(400).send('Invalid Username');
-	}
-
-	// Get the user from Github
-	const userInfoPromise = axios.get(
-		'http://api.github.com/users/' + request.params.user,
-	);
-
-	// Get the user's repos from Github
-	const userReposPromise = axios.get(
-		'http://api.github.com/users/' + request.params.user + '/repos',
-	);
-
 	// Get the response from Github
-	const [userInfo, userRepos] = await Promise.all([
-		userInfoPromise, userReposPromise,
-	]);
+	const gitResponse = await getUserInfo(request.params.user);
 
-	// Check if all infos exists and is valid
-	if (
-		!userInfo || !userInfo.data || userInfo.status !== 200 ||
-		!userRepos || !userRepos.data || userRepos.status !== 200
-	) return response.status(404).send('User Not Found');
+	// If there is an error, return
+	if (!gitResponse.success) return response.status(502).send('Bad Gateway');
 
 	// Get the user's information
-	const avatar = userInfo.data.avatar_url;
-	const name = userInfo.data.name;
-	const login = userInfo.data.login;
-	const bio = userInfo.data.bio;
+	const userInfo = gitResponse.userInfo;
+	const userRepos = gitResponse.userRepos;
+
+	// Get the user's information
+	const avatar = userInfo.avatar_url;
+	const name = userInfo.name;
+	const login = userInfo.login;
+	const bio = userInfo.bio;
 
 	// Get the user's repos stars
-	const stars = userRepos.data.reduce((accumulator, repo) => {
+	const stars = userRepos.reduce((accumulator, repo) => {
 		return accumulator + parseInt(repo.stargazers_count);
 	}, 0);
 

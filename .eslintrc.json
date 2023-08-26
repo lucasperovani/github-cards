@@ -1,0 +1,29 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": "google",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "rules": {
+        // Tabs
+        "indent": ["error", "tab", {"SwitchCase": 1}],
+        "no-tabs": ["error", {"allowIndentationTabs": true }],
+
+        // Alignment
+        "key-spacing": ["error", {"align": "value"}],
+
+        // JSDoc
+        "valid-jsdoc": ["error", {
+            "requireReturn": true,
+            "requireReturnDescription": true,
+            "requireParamDescription": true,
+            "prefer": {
+                "return": "returns"
+            }
+        }]
+    }
+}

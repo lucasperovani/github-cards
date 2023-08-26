@@ -1,0 +1,44 @@
+{
+    "extends": [
+		"eslint:recommended",
+		"prettier",
+		"google",
+		"plugin:jest/recommended"
+	],
+    "parserOptions": {
+        "ecmaVersion": 2022,
+        "sourceType": "module"
+    },
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true,
+        "jquery": true,
+        "jest": true
+    },
+    "plugins": [
+        "jest"
+    ],
+    "rules": {
+		// Need a valid JSDoc comment for every function
+		"valid-jsdoc": [ "error", {
+            "requireReturn": true,
+            "requireReturnDescription": true,
+            "requireParamDescription": true,
+            "prefer": {
+                "return": "returns"
+            }
+        }],
+		"require-jsdoc": ["error", {
+			"require": {
+				"FunctionDeclaration": true,
+				"MethodDefinition": true,
+				"ClassDeclaration": true,
+				"ArrowFunctionExpression": true,
+				"FunctionExpression": true
+			}
+		}],
+        "no-unused-vars": "warn",
+        "dot-location": ["error", "property"]
+    }
+}

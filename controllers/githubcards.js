@@ -26,7 +26,7 @@ const controller = {};
  * @param {Express.Request} request - The request object.
  * @param {Express.Response} response - The response object.
  *
- * @return {void}
+ * @returns {void}
  */
 controller.entry = async function(request, response) {
 	// Validate the response

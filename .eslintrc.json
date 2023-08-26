@@ -14,6 +14,16 @@
         "no-tabs": ["error", {"allowIndentationTabs": true }],
 
         // Alignment
-        "key-spacing": ["error", {"align": "value"}]
+        "key-spacing": ["error", {"align": "value"}],
+
+        // JSDoc
+        "valid-jsdoc": ["error", {
+            "requireReturn": true,
+            "requireReturnDescription": true,
+            "requireParamDescription": true,
+            "prefer": {
+                "return": "returns"
+            }
+        }]
     }
 }

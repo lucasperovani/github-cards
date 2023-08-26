@@ -1,14 +1,14 @@
 const ALLOWED_PARAMETERS = {
     'aria-labelledby':  {type: 'string'},
     'fill':             {type: 'string'},
-    'height':           {type: 'integer', min: 0},
+    'height':           {type: 'integer', min: 1},
     'id':               {type: 'string'},
     'role':             {
         type: 'string',
         values: ['application', 'document', 'img'],
     },
-    'viewBox':          {type: 'integer[4]'},
-    'width':            {type: 'integer', min: 0},
+    'viewBox':          {type: 'integer-array', length: 4},
+    'width':            {type: 'integer', min: 1},
     'xmlns':            {type: 'string'},
 };
 
@@ -120,11 +120,58 @@ class SVG {
         // If the name is not a string, return false
         if (typeof name !== 'string') return false;
 
-        // If the value is not a string, return false
-        if (typeof value !== 'string') return false;
+        // If the parameter is not allowed, return false
+        switch (ALLOWED_PARAMETERS[name].type) {
+            case 'string':
+                if (typeof value !== 'string') return false;
+                
+                // Push the parameter
+                this.parameters[name] = value;
 
-        // Add the parameter
-        this.parameters[name] = value;
+                break;
+
+            case 'integer':
+                if (typeof value !== 'number') return false;
+
+                // Validate min
+                if (
+                    ALLOWED_PARAMETERS[name].min &&
+                    value < ALLOWED_PARAMETERS[name].min
+                ) return false;
+
+                // Validate max
+                if (
+                    ALLOWED_PARAMETERS[name].max &&
+                    value > ALLOWED_PARAMETERS[name].max
+                ) return false;
+
+                // Push the parameter
+                this.parameters[name] = value.toString();
+                
+                break;
+
+            case 'integer-array':
+                if (!Array.isArray(value)) return false;
+                // Validate length
+                if (
+                    ALLOWED_PARAMETERS[name].length &&
+                    value.length !== ALLOWED_PARAMETERS[name].length
+                ) return false;
+
+                // Validate each element
+                value.forEach(element => {
+                    if (typeof element !== 'number') return false;
+                });
+
+                // Push the parameter
+                this.parameters[name] = value.join(' ');
+
+                break;
+
+            default:
+                return false;
+        }
+
         return true;
     }
 

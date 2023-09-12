@@ -38,5 +38,7 @@ jobs:
           --config .eslintrc.json
           --ext .js,.jsx,.ts,.tsx
           --format @microsoft/eslint-formatter-sarif
-          --output-file eslint-results.sarif
+          --color
+          --report-unused-disable-directives
+          --max-warnings 0
         continue-on-error: false

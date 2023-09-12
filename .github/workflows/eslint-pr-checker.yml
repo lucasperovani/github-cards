@@ -37,7 +37,6 @@ jobs:
         run: npx eslint .
           --config .eslintrc.json
           --ext .js,.jsx,.ts,.tsx
-          --format @microsoft/eslint-formatter-sarif
           --color
           --report-unused-disable-directives
           --max-warnings 0

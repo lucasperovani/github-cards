@@ -5,6 +5,11 @@
  * @class
  * @property {Boolean} error - The error status.
  * @property {String} message - The error message.
+ * @property {String} parameterName - The parameter name.
+ * @property {Any} value - The parameter value, will change the type for every
+ * class.
+ *
+ * @returns {Parameter} The SVG parameter.
  */
 class Parameter {
     /**
@@ -29,7 +34,7 @@ class Parameter {
     /**
      * Get the parameter name.
      *
-     * @return {String} This parameter name.
+	 * @returns {String} This parameter name.
      */
     getParameterName() {
         return this.parameterName;
@@ -39,6 +44,8 @@ class Parameter {
      * Set the parameter value.
      *
      * @param {String} value - The parameter value.
+	 *
+	 * @returns {Boolean} If the value is valid.
      */
     setParameterValue(value) {
         if (typeof value !== 'string' || value === '') {
@@ -53,7 +60,7 @@ class Parameter {
     /**
      * Build this parameter, returning a string.
      *
-     * @return {String} The SVG Parameter string.
+	 * @returns {String} The SVG Parameter string.
      */
     build() {
         if (this.error)  return '';
@@ -63,5 +70,5 @@ class Parameter {
 };
 
 
-// Export SVGs class
+// Export SVG Parameters class
 module.exports = {Parameter};

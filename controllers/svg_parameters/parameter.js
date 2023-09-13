@@ -37,8 +37,16 @@ class Parameter {
 
     /**
      * Set the parameter value.
+     *
+     * @param {String} value - The parameter value.
      */
     setParameterValue(value) {
+        if (typeof value !== 'string' || value === '') {
+            this.error = true;
+            this.message = 'Invalid value';
+            return;
+        }
+
         this.value = value;
     }
 
@@ -48,6 +56,8 @@ class Parameter {
      * @return {String} The SVG Parameter string.
      */
     build() {
+        if (this.error)  return '';
+
         return '';
     }
 };

@@ -12,10 +12,12 @@ const ALLOWED_PARAMETERS = {
 };
 
 const STRING_REGEX = /^[a-zA-Z0-9-_@() ]+$/;
+const COLOR_REGEX = /^[a-zA-Z-]+$/;
 
 
 // Export constants
 module.exports = {
 	ALLOWED_PARAMETERS,
 	STRING_REGEX,
+	COLOR_REGEX,
 };

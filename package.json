@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "node main.js",
-    "test": "test"
+    "test": "test",
+    "linter": "npx eslint . --config .eslintrc.json --ext .js,.jsx,.ts,.tsx --color --report-unused-disable-directives --max-warnings 0",
+    "linter-fix": "npx eslint . --config .eslintrc.json --ext .js,.jsx,.ts,.tsx --fix"
   },
   "keywords": [
     "profile",

@@ -2,8 +2,8 @@ const {STRING_REGEX} = require('../constants.js');
 
 
 /**
- * This class represents an SVG Parameter.
- * It is used to build an SVG Parameter string.
+ * This class represents a SVG Parameter.
+ * It is used to build a SVG Parameter string.
  *
  * @class
  * @property {Boolean} error - The error status.

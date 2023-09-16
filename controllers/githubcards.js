@@ -116,18 +116,18 @@ controller.entry = async function(request, response) {
 
 	// Get the user's information
 	const userInfo = gitResponse.userInfo;
-	const userRepos = gitResponse.userRepos;
+	// const userRepos = gitResponse.userRepos;
 
 	// Get the user's information
-	const avatar = userInfo.avatar_url;
+	// const avatar = userInfo.avatar_url;
 	const name = userInfo.name;
 	const login = userInfo.login;
-	const bio = userInfo.bio;
+	// const bio = userInfo.bio;
 
 	// Get the user's repos stars
-	const stars = userRepos.reduce((accumulator, repo) => {
-		return accumulator + parseInt(repo.stargazers_count);
-	}, 0);
+	// const stars = userRepos.reduce((accumulator, repo) => {
+	// return accumulator + parseInt(repo.stargazers_count);
+	// }, 0);
 
 	// Change the content type to SVG
 	response.setHeader('content-type', 'image/svg+xml; charset=utf-8');
